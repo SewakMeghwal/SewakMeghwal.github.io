@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Sewak Ram</title>
+  <link rel="icon" href="https://media.licdn.com/dms/image/v2/D5603AQFtA8_KInFLZw/profile-displayphoto-scale_200_200/B56ZkAZhbeHQAY-/0/1756648317372?e=2147483647&v=beta&t=L8aWH0aBZVdWukFHoRW7OO36tygwphWCNM8uj5Np0Dc" type="image/png" />
+  <link rel="apple-touch-icon" href="https://media.licdn.com/dms/image/v2/D5603AQFtA8_KInFLZw/profile-displayphoto-scale_200_200/B56ZkAZhbeHQAY-/0/1756648317372?e=2147483647&v=beta&t=L8aWH0aBZVdWukFHoRW7OO36tygwphWCNM8uj5Np0Dc" />
+
+  <!-- TailwindCSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind Dark Mode -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+
+  <!-- AOS -->
+  <link
+    href="https://unpkg.com/aos@2.3.1/dist/aos.css"
+    rel="stylesheet"
+  />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <!-- GSAP ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <!-- Particles -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+  <!-- Theme Init -->
+  <script>
+    (() => {
+      const savedTheme = localStorage.getItem("theme") || "system";
+
+      const isDark =
+        savedTheme === "dark" ||
+        (savedTheme === "system" &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+      if (isDark) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    })();
+  </script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .glass {
+      background: rgba(31, 41, 55, 0.65);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .social-icon {
+      transition: all 0.3s ease;
+    }
+
+    .social-icon:hover {
+      transform: translateY(-5px) scale(1.1);
+    }
+
+    .theme-dropdown {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.25s ease;
+    }
+
+    .theme-wrapper:hover .theme-dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-sans overflow-x-hidden">
+
+  <!-- Navbar -->
+  <nav class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-md fixed w-full z-50 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+
+      <!-- Logo -->
+      <div class="text-2xl font-bold text-indigo-500">
+        Sewak Ram
+      </div>
+
+      <!-- Nav Links -->
+      <ul class="hidden md:flex space-x-6 font-medium">
+        <li><a href="#hero" class="hover:text-indigo-400 transition">Home</a></li>
+        <li><a href="#about" class="hover:text-indigo-400 transition">About</a></li>
+        <li><a href="#portfolio" class="hover:text-indigo-400 transition">Projects</a></li>
+        <li><a href="#experience" class="hover:text-indigo-400 transition">Experience</a></li>
+        <li><a href="#contact" class="hover:text-indigo-400 transition">Contact</a></li>
+      </ul>
+
+      <!-- Right Side -->
+      <div class="flex items-center gap-5">
+
+        <!-- Social -->
+        <div class="hidden md:flex items-center gap-4 text-xl">
+
+          <a
+            href="https://github.com/Sewak2001"
+            target="_blank"
+            class="hover:text-indigo-400 transition"
+          >
+            <i class="fab fa-github"></i>
+          </a>
+
+          <a
+            href="https://linkedin.com/in/sewak-meghwal-837244232"
+            target="_blank"
+            class="hover:text-blue-500 transition"
+          >
+            <i class="fab fa-linkedin"></i>
+          </a>
+
+          <a
+            href="https://twitter.com/sewak_7"
+            target="_blank"
+            class="hover:text-sky-400 transition"
+          >
+            <i class="fab fa-x-twitter"></i>
+          </a>
+
+          <a
+            href="https://instagram.com/sewak_7_7"
+            target="_blank"
+            class="hover:text-pink-400 transition"
+          >
+            <i class="fab fa-instagram"></i>
+          </a>
+
+        </div>
+
+        <!-- Theme Toggle -->
+        <div class="relative theme-wrapper">
+
+          <button
+            class="w-11 h-11 rounded-full border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 hover:scale-105 transition flex items-center justify-center"
+          >
+            <i id="theme-icon" class="fas fa-moon text-indigo-400 text-lg"></i>
+          </button>
+
+          <!-- Dropdown -->
+          <div
+            class="theme-dropdown absolute right-0 mt-3 w-44 rounded-xl overflow-hidden shadow-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
+          >
+
+            <button
+              onclick="setTheme('light')"
+              class="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+            >
+              <i class="fas fa-sun text-yellow-400"></i>
+              <span>Light Theme</span>
+            </button>
+
+            <button
+              onclick="setTheme('dark')"
+              class="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+            >
+              <i class="fas fa-moon text-indigo-400"></i>
+              <span>Dark Theme</span>
+            </button>
+
+            <button
+              onclick="setTheme('system')"
+              class="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+            >
+              <i class="fas fa-desktop text-green-400"></i>
+              <span>System Theme</span>
+            </button>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section
+    id="hero"
+    class="relative h-screen flex items-center justify-center overflow-hidden"
+  >
+
+    <div id="particles-js" class="absolute inset-0"></div>
+
+    <div class="relative z-10 text-center px-4" data-aos="fade-up">
+
+      <h1
+        id="hero-text"
+        class="text-5xl md:text-7xl font-bold text-indigo-500 mb-5"
+      >
+        Hi, I'm Sewak Ram
+      </h1>
+
+      <p
+        id="hero-sub"
+        class="text-xl md:text-3xl mb-8 text-gray-700 dark:text-gray-300"
+      >
+        Python & Full Stack Developer
+      </p>
+
+      <div class="flex flex-wrap justify-center gap-4 mb-8">
+
+        <a
+          href="#contact"
+          class="px-6 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white transition"
+        >
+          Contact Me
+        </a>
+
+        <a
+          href="https://github.com/Sewak2001"
+          target="_blank"
+          class="px-6 py-3 rounded-lg border border-indigo-500 text-indigo-500 hover:bg-indigo-600 hover:text-white transition"
+        >
+          View GitHub
+        </a>
+
+      </div>
+
+      <!-- Social -->
+      <div class="flex justify-center gap-6 text-3xl">
+
+        <a
+          href="https://github.com/Sewak2001"
+          target="_blank"
+          class="social-icon hover:text-indigo-400"
+        >
+          <i class="fab fa-github"></i>
+        </a>
+
+        <a
+          href="https://linkedin.com/in/sewak-meghwal-837244232"
+          target="_blank"
+          class="social-icon hover:text-blue-500"
+        >
+          <i class="fab fa-linkedin"></i>
+        </a>
+
+        <a
+          href="https://twitter.com/sewak_7"
+          target="_blank"
+          class="social-icon hover:text-sky-400"
+        >
+          <i class="fab fa-x-twitter"></i>
+        </a>
+
+        <a
+          href="https://instagram.com/sewak_7_7"
+          target="_blank"
+          class="social-icon hover:text-pink-400"
+        >
+          <i class="fab fa-instagram"></i>
+        </a>
+
+        <a
+          href="mailto:sewak6188@mail.com"
+          class="social-icon hover:text-red-400"
+        >
+          <i class="fas fa-envelope"></i>
+        </a>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="max-w-7xl mx-auto py-24 px-4">
+
+    <div class="flex flex-col md:flex-row items-center gap-12">
+
+      <img
+        src="https://media.licdn.com/dms/image/v2/D5603AQFtA8_KInFLZw/profile-displayphoto-scale_200_200/B56ZkAZhbeHQAY-/0/1756648317372?e=2147483647&v=beta&t=L8aWH0aBZVdWukFHoRW7OO36tygwphWCNM8uj5Np0Dc"
+        alt="Sewak Ram Profile"
+        class="w-56 h-56 rounded-full border-4 border-indigo-500 shadow-2xl"
+        data-aos="fade-right"
+      />
+
+      <div data-aos="fade-left">
+
+        <h2 class="text-4xl font-bold mb-6 text-indigo-500">
+          About Me
+        </h2>
+
+        <p class="leading-8 mb-6 text-lg text-gray-700 dark:text-gray-300">
+          Python developer 🐍 from Mohali, building scalable web applications with Django, Flask, React, and REST APIs. I enjoy solving problems with clean code and intelligent automation.
+        </p>
+
+        <!-- Skills -->
+        <div class="space-y-5">
+          <div>
+            <p class="mb-2">Python</p>
+            <div class="w-full h-4 rounded-full bg-gray-300 dark:bg-gray-700">
+              <div class="skill-bar h-4 rounded-full bg-indigo-500" style="width: 95%"></div>
+            </div>
+          </div>
+          <div>
+            <p class="mb-2">Django</p>
+            <div class="w-full h-4 rounded-full bg-gray-300 dark:bg-gray-700">
+              <div class="skill-bar h-4 rounded-full bg-indigo-500" style="width: 90%"></div>
+            </div>
+          </div>
+          <div>
+            <p class="mb-2">Flask</p>
+            <div class="w-full h-4 rounded-full bg-gray-300 dark:bg-gray-700">
+              <div class="skill-bar h-4 rounded-full bg-indigo-500" style="width: 88%"></div>
+            </div>
+          </div>
+          <div>
+            <p class="mb-2">REST APIs</p>
+            <div class="w-full h-4 rounded-full bg-gray-300 dark:bg-gray-700">
+              <div class="skill-bar h-4 rounded-full bg-indigo-500" style="width: 90%"></div>
+            </div>
+          </div>
+          <div>
+            <p class="mb-2">JavaScript</p>
+            <div class="w-full h-4 rounded-full bg-gray-300 dark:bg-gray-700">
+              <div class="skill-bar h-4 rounded-full bg-indigo-500" style="width: 82%"></div>
+            </div>
+          </div>
+          <div>
+            <p class="mb-2">HTML/CSS</p>
+            <div class="w-full h-4 rounded-full bg-gray-300 dark:bg-gray-700">
+              <div class="skill-bar h-4 rounded-full bg-indigo-500" style="width: 90%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section id="portfolio" class="max-w-7xl mx-auto py-24 px-4">
+
+    <h2
+      class="text-4xl font-bold text-center mb-14 text-indigo-500"
+      data-aos="fade-down"
+    >
+      My Projects
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="glass rounded-2xl p-6 hover:scale-105 transition duration-500" data-aos="fade-up">
+        <h3 class="text-2xl font-semibold mb-3">ChatoraAI</h3>
+        <p class="mb-5 text-gray-300">Voice & Chat Bot with 3D Interactive UI - An intelligent AI assistant with voice recognition and interactive 3D interface.</p>
+        <div class="flex gap-4">
+          <a href="https://github.com/Sewak2001/ChatoraAI" class="text-indigo-400">
+            <i class="fab fa-github"></i> Code
+          </a>
+          <a href="https://chatoraa.netlify.app/" class="text-green-400">
+            <i class="fas fa-up-right-from-square"></i> Live
+          </a>
+        </div>
+      </div>
+
+      <div class="glass rounded-2xl p-6 hover:scale-105 transition duration-500" data-aos="fade-up">
+        <h3 class="text-2xl font-semibold mb-3">Blogs</h3>
+        <p class="mb-5 text-gray-300">Full-stack blogging platform with Django backend, JavaScript frontend, and SQLite database for content management.</p>
+        <div class="flex gap-4">
+          <a href="https://github.com/Sewak2001/Blogs" class="text-indigo-400">
+            <i class="fab fa-github"></i> Code
+          </a>
+          <a href="https://sewak.pythonanywhere.com" class="text-green-400">
+            <i class="fas fa-up-right-from-square"></i> Live
+          </a>
+        </div>
+      </div>
+
+      <div class="glass rounded-2xl p-6 hover:scale-105 transition duration-500" data-aos="fade-up">
+        <h3 class="text-2xl font-semibold mb-3">Mobile Laptop</h3>
+        <p class="mb-5 text-gray-300">Compact, portable laptop solution with hardware design and software optimization for on-the-go productivity.</p>
+        <div class="flex gap-4">
+          <a href="https://github.com/Sewak2001/Mobile-laptop" class="text-indigo-400">
+            <i class="fab fa-github"></i> Code
+          </a>
+          <a href="https://mobile-laptop.onrender.com/" class="text-green-400">
+            <i class="fas fa-up-right-from-square"></i> Live
+          </a>
+        </div>
+      </div>
+
+      <div class="glass rounded-2xl p-6 hover:scale-105 transition duration-500" data-aos="fade-up">
+        <h3 class="text-2xl font-semibold mb-3">Connect-App</h3>
+        <p class="mb-5 text-gray-300">Full-stack social media application built with Django REST Framework backend and React frontend.</p>
+        <div class="flex gap-4">
+          <a href="https://github.com/Sewak2001/Connect-App" class="text-indigo-400">
+            <i class="fab fa-github"></i> Code
+          </a>
+          <a href="#" class="text-green-400">
+            <i class="fas fa-up-right-from-square"></i> Live
+          </a>
+        </div>
+      </div>
+
+      <div class="glass rounded-2xl p-6 hover:scale-105 transition duration-500" data-aos="fade-up">
+        <h3 class="text-2xl font-semibold mb-3">Typing Speed Test</h3>
+        <p class="mb-5 text-gray-300">Interactive typing speed test game built with Python and Pygame, featuring real-time WPM calculation and accuracy tracking.</p>
+        <div class="flex gap-4">
+          <a href="https://github.com/Sewak2001/Typping-Speed-Test-Game" class="text-indigo-400">
+            <i class="fab fa-github"></i> Code
+          </a>
+          <a href="#" class="text-green-400">
+            <i class="fas fa-up-right-from-square"></i> Live
+          </a>
+        </div>
+      </div>
+
+      <div class="glass rounded-2xl p-6 hover:scale-105 transition duration-500" data-aos="fade-up">
+        <h3 class="text-2xl font-semibold mb-3">Task Management API</h3>
+        <p class="mb-5 text-gray-300">RESTful API for task management with authentication, member management, and status tracking capabilities.</p>
+        <div class="flex gap-4">
+          <a href="https://github.com/Sewak2001/Task-Management" class="text-indigo-400">
+            <i class="fab fa-github"></i> Code
+          </a>
+          <a href="#" class="text-green-400">
+            <i class="fas fa-up-right-from-square"></i> Live
+          </a>
+        </div>
+      </div>
+
+      <div class="glass rounded-2xl p-6 hover:scale-105 transition duration-500" data-aos="fade-up">
+        <h3 class="text-2xl font-semibold mb-3">Video Processor</h3>
+        <p class="mb-5 text-gray-300">Video editing utility for processing videos with zoom, contrast, and brightness adjustments.</p>
+        <div class="flex gap-4">
+          <a href="https://github.com/Sewak2001/Video_Processor" class="text-indigo-400">
+            <i class="fab fa-github"></i> Code
+          </a>
+          <a href="#" class="text-green-400">
+            <i class="fas fa-up-right-from-square"></i> Live
+          </a>
+        </div>
+      </div>
+
+      <div class="glass rounded-2xl p-6 hover:scale-105 transition duration-500" data-aos="fade-up">
+        <h3 class="text-2xl font-semibold mb-3">To-Do Project</h3>
+        <p class="mb-5 text-gray-300">Python-based task management application for organizing and tracking daily work activities.</p>
+        <div class="flex gap-4">
+          <a href="https://github.com/Sewak2001/To-Do" class="text-indigo-400">
+            <i class="fab fa-github"></i> Code
+          </a>
+          <a href="#" class="text-green-400">
+            <i class="fas fa-up-right-from-square"></i> Live
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="max-w-4xl mx-auto py-24 px-4">
+
+    <h2
+      class="text-4xl font-bold text-center mb-14 text-indigo-500"
+      data-aos="fade-down"
+    >
+      Experience
+    </h2>
+
+    <div class="space-y-8">
+      <div class="glass p-6 rounded-2xl" data-aos="fade-right">
+        <h3 class="text-2xl font-semibold mb-2">Software Engineer</h3>
+        <p class="text-indigo-400 mb-2">Techwin Labs LLP • 05/2023 - Present</p>
+        <p class="text-gray-300">Building full-stack web applications, APIs, and dashboard solutions using Python and modern frontend frameworks.</p>
+      </div>
+
+      <div class="glass p-6 rounded-2xl" data-aos="fade-right">
+        <h3 class="text-2xl font-semibold mb-2">Python Developer</h3>
+        <p class="text-indigo-400 mb-2">Omninos Technologies International Pvt Ltd • 01/2023 - 05/2023</p>
+        <p class="text-gray-300">Created automation scripts and backend components for enterprise-grade web applications.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section
+    id="contact"
+    class="max-w-2xl mx-auto py-24 px-4"
+    data-aos="fade-up"
+  >
+
+    <h2 class="text-4xl font-bold text-center mb-12 text-indigo-500">
+      Contact Me
+    </h2>
+
+    {% if status == 'success' %}
+    <div id="statusAlert" class="mb-6 rounded-2xl p-6 bg-green-50 dark:bg-green-900 text-green-900 dark:text-green-100 border border-green-200 dark:border-green-700 shadow-lg animate-pulse">
+      <div class="flex items-center gap-3">
+        <i class="fas fa-check-circle text-2xl text-green-500"></i>
+        <div>
+          <strong>Success!</strong> Thank you for reaching out. I will review your message and respond soon.
+        </div>
+      </div>
+    </div>
+    {% elif status == 'error' %}
+    <div id="statusAlert" class="mb-6 rounded-2xl p-6 bg-red-50 dark:bg-red-900 text-red-900 dark:text-red-100 border border-red-200 dark:border-red-700 shadow-lg animate-pulse">
+      <div class="flex items-center gap-3">
+        <i class="fas fa-exclamation-circle text-2xl text-red-500"></i>
+        <div>
+          <strong>Oops!</strong> Please fill in all contact fields before sending.
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <form action="/contact" method="post" class="glass p-8 rounded-2xl space-y-5">
+
+      <input
+        type="text"
+        name="name"
+        placeholder="Your Name"
+        class="w-full p-4 rounded-lg bg-gray-200 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+        required
+      />
+
+      <input
+        type="email"
+        name="email"
+        placeholder="Your Email"
+        class="w-full p-4 rounded-lg bg-gray-200 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+        required
+      />
+
+      <textarea
+        rows="5"
+        name="message"
+        placeholder="Your Message"
+        class="w-full p-4 rounded-lg bg-gray-200 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+        required
+      ></textarea>
+
+      <button
+        type="submit"
+        class="w-full py-4 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white transition"
+      >
+        Send Message
+      </button>
+
+    </form>
+  </section>
+
+  <style>
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+    .animate-pulse {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
+
+  <!-- Footer -->
+  <footer class="bg-white dark:bg-gray-800 py-8 border-t border-gray-200 dark:border-gray-700">
+
+    <div class="flex justify-center gap-6 text-2xl mb-4">
+      <a href="https://github.com/Sewak2001" class="hover:text-indigo-400">
+        <i class="fab fa-github"></i>
+      </a>
+      <a href="https://linkedin.com/in/sewak-meghwal-837244232" class="hover:text-blue-500">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="https://twitter.com/sewak_7" class="hover:text-sky-400">
+        <i class="fab fa-x-twitter"></i>
+      </a>
+      <a href="https://instagram.com/sewak_7_7" class="hover:text-pink-400">
+        <i class="fab fa-instagram"></i>
+      </a>
+    </div>
+
+    <p class="text-center text-gray-500">
+      © 2026 Sewak Ram. All rights reserved.
+    </p>
+    {% if is_admin %}
+    <p class="text-center mt-4">
+      <a href="/messages" class="text-blue-500 hover:text-blue-700">View Messages</a> | 
+      <a href="/logout" class="text-red-500 hover:text-red-700">Logout</a>
+    </p>
+    {% endif %}
+
+  <!-- Scripts -->
+
+  <!-- Status Alert Auto-Dismiss -->
+  <script>
+    const statusAlert = document.getElementById('statusAlert');
+    if (statusAlert) {
+      setTimeout(() => {
+        statusAlert.style.transition = 'opacity 0.5s ease-out';
+        statusAlert.style.opacity = '0';
+        setTimeout(() => {
+          statusAlert.style.display = 'none';
+        }, 500);
+      }, 4000);
+    }
+  </script>
+
+  <!-- Particles -->
+  <script>
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 80 },
+        color: { value: '#6366f1' },
+        shape: { type: 'circle' },
+        opacity: { value: 0.5 },
+        size: { value: 3 },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: '#6366f1',
+          opacity: 0.4,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 2
+        }
+      }
+    });
+  </script>
+
+  <!-- Theme Script -->
+  <script>
+
+    const html = document.documentElement;
+    const themeIcon = document.getElementById("theme-icon");
+
+    function updateThemeIcon(theme) {
+
+      themeIcon.className = "";
+
+      if (theme === "light") {
+        themeIcon.className = "fas fa-sun text-yellow-400 text-lg";
+      }
+      else if (theme === "dark") {
+        themeIcon.className = "fas fa-moon text-indigo-400 text-lg";
+      }
+      else {
+        themeIcon.className = "fas fa-desktop text-green-400 text-lg";
+      }
+    }
+
+    function setTheme(theme) {
+      localStorage.setItem("theme", theme);
+
+      if (theme === "light") {
+        html.classList.remove("dark");
+      } else if (theme === "dark") {
+        html.classList.add("dark");
+      } else {
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          html.classList.add("dark");
+        } else {
+          html.classList.remove("dark");
+        }
+      }
+
+      updateThemeIcon(theme);
+    }
+
+    // Initialize theme
+    const savedTheme = localStorage.getItem("theme") || "system";
+    setTheme(savedTheme);
+
+  </script>
+
+  <!-- AOS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+
+  <!-- GSAP -->
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.from("#hero-text", {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      delay: 0.5
+    });
+
+    gsap.from("#hero-sub", {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      delay: 1
+    });
+
+    // Skill bars animation
+    gsap.utils.toArray('.skill-bar').forEach(bar => {
+      gsap.to(bar, {
+        width: bar.dataset.skill,
+        duration: 2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: bar,
+          start: "top 80%"
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
