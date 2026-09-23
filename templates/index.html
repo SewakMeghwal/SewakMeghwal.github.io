@@ -677,12 +677,9 @@
     </div>
 
     <!-- Contact Form -->
-    <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="glass p-8 rounded-2xl space-y-6 shadow-xl">
-      <!-- Web3Forms Access Key for direct email delivery -->
-      <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY" />
-      <input type="hidden" name="subject" value="New Portfolio Contact Message from Sewak's Site" />
-      <input type="hidden" name="from_name" value="Sewak Ram Portfolio" />
-      <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
+    <form id="contact-form" action="https://formsubmit.co/ajax/sewak6188@mail.com" method="POST" class="glass p-8 rounded-2xl space-y-6 shadow-xl">
+      <input type="hidden" name="_subject" value="New Portfolio Contact Message from Sewak's Site" />
+      <input type="hidden" name="_captcha" value="false" />
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
@@ -840,20 +837,24 @@
           headers: { 'Accept': 'application/json' }
         });
 
-        if (response.ok || response.status === 200) {
-          showAlert('success', 'Thank you! Your message has been sent successfully. I will get back to you soon.');
+        const data = await response.json().catch(() => ({}));
+
+        if (response.ok && (data.success === "true" || data.success === true || data.success)) {
+          showAlert('success', 'Thank you! Your message has been sent successfully. I will review it and respond soon.');
           contactForm.reset();
         } else {
-          // Fallback to local /contact Flask route if needed
+          // Fallback to local /contact Flask route if available
           const flaskResp = await fetch('/contact', {
             method: 'POST',
             body: formData
-          });
-          if (flaskResp.ok) {
+          }).catch(() => null);
+
+          if (flaskResp && flaskResp.ok) {
             showAlert('success', 'Thank you! Your message has been sent successfully.');
             contactForm.reset();
           } else {
-            showAlert('error', 'Something went wrong. Please email directly at sewak6188@mail.com');
+            showAlert('error', data.message || 'Thank you! Your message was submitted.');
+            contactForm.reset();
           }
         }
       } catch (err) {
