@@ -213,7 +213,7 @@
       <div class="pt-2 border-t border-gray-200 dark:border-gray-800 flex gap-4 text-xl text-gray-600 dark:text-gray-400">
         <a href="https://github.com/SewakMeghwal" target="_blank" class="hover:text-indigo-500"><i class="fab fa-github"></i></a>
         <a href="https://linkedin.com/in/sewak-meghwal-837244232" target="_blank" class="hover:text-blue-500"><i class="fab fa-linkedin"></i></a>
-        <a href="https://twitter.com/sewak_7" target="_blank" class="hover:text-sky-400"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://x.com/sewakmeghwal" target="_blank" class="hover:text-sky-400"><i class="fab fa-x-twitter"></i></a>
         <a href="https://instagram.com/sewak_7_7" target="_blank" class="hover:text-pink-400"><i class="fab fa-instagram"></i></a>
       </div>
     </div>
@@ -265,7 +265,7 @@
         <a href="https://linkedin.com/in/sewak-meghwal-837244232" target="_blank" aria-label="LinkedIn" class="social-icon hover:text-blue-500">
           <i class="fab fa-linkedin"></i>
         </a>
-        <a href="https://twitter.com/sewak_7" target="_blank" aria-label="X / Twitter" class="social-icon hover:text-sky-400">
+        <a href="https://x.com/sewakmeghwal" target="_blank" aria-label="X / Twitter" class="social-icon hover:text-sky-400">
           <i class="fab fa-x-twitter"></i>
         </a>
         <a href="https://instagram.com/sewak_7_7" target="_blank" aria-label="Instagram" class="social-icon hover:text-pink-500">
@@ -765,7 +765,7 @@
         <a href="https://linkedin.com/in/sewak-meghwal-837244232" target="_blank" aria-label="LinkedIn" class="hover:text-blue-500 transition">
           <i class="fab fa-linkedin"></i>
         </a>
-        <a href="https://twitter.com/sewak_7" target="_blank" aria-label="Twitter" class="hover:text-sky-400 transition">
+        <a href="https://x.com/sewakmeghwal" target="_blank" aria-label="Twitter" class="hover:text-sky-400 transition">
           <i class="fab fa-x-twitter"></i>
         </a>
         <a href="https://instagram.com/sewak_7_7" target="_blank" aria-label="Instagram" class="hover:text-pink-500 transition">
@@ -869,6 +869,9 @@
 
         if (response.ok && (data.success === "true" || data.success === true || data.success)) {
           showAlert('success', 'Thank you! Your message has been sent successfully. I will review it and respond soon.');
+          contactForm.reset();
+        } else if (data.message && data.message.includes('Activation')) {
+          showAlert('success', 'Form activation email sent to sewakmeghwal@gmail.com! Please open your inbox and click "Activate Form" once to enable instant email delivery.');
           contactForm.reset();
         } else {
           // Fallback to local /contact Flask route if available
