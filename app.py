@@ -1,4 +1,4 @@
-﻿from datetime import datetime
+from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 
@@ -38,6 +38,8 @@ def contact():
     new_message = Message(name=name, email=email, message=message)
     db.session.add(new_message)
     db.session.commit()
+
+    return redirect(url_for('home', status='success'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
